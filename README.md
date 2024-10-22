@@ -22,7 +22,7 @@ Follow these steps to install the extension:
 1. Launch Visual Studio Code.
 2. Go to the Extensions view by clicking on the Extensions icon in the Activity Bar on the side of the window.
 3. Search for `Pair Programmer` in the Extensions view search box.
-4. Click the Install button for the `Pair Programmer` extension by `Hack-a-thletes`.
+4. Click the Install button for the `Pair Programmer` extension by `Code-a-thletes`.
 
 ## Usage
 
