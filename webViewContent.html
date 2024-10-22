@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pair Programmer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css" />
+    <style>
+        body {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+                'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            background-color: black;
+            color: white;
+        }
+
+        header {
+            background-color: black;
+            color: wheat;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            margin-bottom: 8px;
+        }
+
+        .header-content {
+            padding: 24px;
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .accordion-section {
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            border-radius: 4px 4px 0px 0px;
+        }
+
+        .accordion-header {
+            border-radius: 4px 4px 0px 0px;
+            background-color: black;
+            color: whitesmoke;
+            font-weight: bold;
+            padding: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.5s ease-in-out;
+            font-size: 20px;
+        }
+
+        .accordion-header:hover {
+            color: lightgoldenrodyellow;
+        }
+
+        .accordion-content {
+            display: block;
+            padding: 10px;
+            color: white;
+            border-radius: 0px 0px 4px 4px;
+            background-color: #00000099;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        .accordion-content__debug,
+        .accordion-content__improve {
+            display: none;
+        }
+
+        .loader {
+            width: 30px;
+            aspect-ratio: 2;
+            --_g: no-repeat radial-gradient(circle closest-side, #fff 90%, #0000);
+            background: var(--_g) 0% 50%, var(--_g) 50% 50%, var(--_g) 100% 50%;
+            background-size: calc(100% / 5) 50%;
+            animation: loading-dots 1s infinite linear;
+        }
+
+        .loader-d-none {
+            display: none;
+        }
+
+        pre {
+            background-color: #00000099 !important;
+            border: 1px solid #ddd;
+            padding: 10px;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+
+        p {
+            background-color: black;
+            color: whitesmoke;
+        }
+
+        ol,
+        ul,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            color: whitesmoke;
+        }
+
+        a {
+            color: wheat;
+        }
+
+        @keyframes loading-dots {
+            20% {
+                background-position: 0% 0%, 50% 50%, 100% 50%;
+            }
+
+            40% {
+                background-position: 0% 100%, 50% 0%, 100% 50%;
+            }
+
+            60% {
+                background-position: 0% 50%, 50% 100%, 100% 0%;
+            }
+
+            80% {
+                background-position: 0% 50%, 50% 50%, 100% 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <div><i class="fa-solid fa-laptop-code"></i>&nbsp;&nbsp;Pair Programmer</div>
+        </div>
+    </header>
+    <section>
+        <div class="accordion-section">
+            <div class="accordion-header">
+                <div class="accordion-header__name">Code Explanations</div>
+                <i class="fa-solid fa-caret-up caret-icon"></i>
+            </div>
+            <div class="accordion-content accordion-content__explain">
+                <div class="loader"></div>
+                <div id="markdown-content" class="accordion-content__1 markdown-body"></div>
+            </div>
+        </div>
+        <div class="accordion-section">
+            <div class="accordion-header">
+                <div class="accordion-header__name">Code Debugging Steps</div>
+                <i class="fa-solid fa-caret-down caret-icon"></i>
+            </div>
+            <div class="accordion-content accordion-content__debug">
+                <div class="loader"></div>
+                <div id="markdown-content" class="accordion-content__2 markdown-body"></div>
+            </div>
+        </div>
+        <div class="accordion-section">
+            <div class="accordion-header">
+                <div class="accordion-header__name">Code Improvements</div>
+                <i class="fa-solid fa-caret-down caret-icon"></i>
+            </div>
+            <div class="accordion-content accordion-content__improve">
+                <div class="loader"></div>
+                <div id="markdown-content" class="accordion-content__3 markdown-body"></div>
+            </div>
+        </div>
+    </section>
+</body>
+<script>
+    const accordionHeaders = document.querySelectorAll(".accordion-header");
+    const iconContainer = document.querySelectorAll(".caret-icon");
+    const loaders = document.querySelectorAll(".loader");
+    const accordionContent1 = document.querySelector(".accordion-content__1");
+    const accordionContent2 = document.querySelector(".accordion-content__2");
+    const accordionContent3 = document.querySelector(".accordion-content__3");
+
+    accordionHeaders.forEach((header, index) => {
+        header.addEventListener("click", () => {
+            const content = header.nextElementSibling;
+            if (content.style.display === "block" ||
+                (index === 0 && content.style.display === '')) {
+                content.style.display = "none";
+                iconContainer[index].classList.remove("fa-caret-up");
+                iconContainer[index].classList.add("fa-caret-down");
+            } else {
+                content.style.display = "block";
+                iconContainer[index].classList.remove("fa-caret-down");
+                iconContainer[index].classList.add("fa-caret-up");
+            }
+        });
+    });
+
+    window.addEventListener("message", (event) => {
+        const data = event.data;
+        if (data.success) {
+            if (data.additionalInfo1) {
+                loaders[0].style.display = 'none';
+                accordionContent1.innerHTML =
+                    data.additionalInfo1;
+            }
+            if (data.additionalInfo2) {
+                loaders[1].style.display = 'none';
+                accordionContent2.innerHTML =
+                    data.additionalInfo2;
+            }
+            if (data.additionalInfo3) {
+                loaders[2].style.display = 'none';
+                accordionContent3.innerHTML =
+                    data.additionalInfo3;
+            }
+        }
+    });
+
+</script>
+
+</html>
